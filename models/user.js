@@ -59,6 +59,7 @@ module.exports = (sequelize, DataTypes) => {
       ukt: DataTypes.INTEGER,
       uktStatus: DataTypes.BOOLEAN,
       role: DataTypes.STRING,
+      phoneNumber: DataTypes.INTEGER
     },
     {
       hooks: {
