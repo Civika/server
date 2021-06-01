@@ -25,7 +25,7 @@ class UserControllers {
             id: foundUser.id,
             email: foundUser.email,
           });
-          await dataPushNotif.add({ pushToken, email });
+          // await dataPushNotif.add({ pushToken, email });
           res
             .status(200)
             .json({ access_token, userId: foundUser.id, foundUser });
@@ -76,6 +76,7 @@ class UserControllers {
 
   static async forwardToDuitku(req, res, next) {
     const id = req.loggedUser.id;
+    console.log(req.body, "<<<<<<<<<<<<<<<<<<");
     try {
       const user = await User.findByPk(id);
       let pay = await payment(user.ukt, req.body.method);

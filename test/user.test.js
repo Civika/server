@@ -349,13 +349,13 @@ describe("GET user/ SUCCESS", () => {
 });
 
 //payment duitku
-describe("POST /users/:id/genDuicdtkuLink to duitku", () => {
+describe("POST /users/:id/genDuitkuLink to duitku", () => {
   test("Should response 201", (done) => {
     const paymentData = {
       method: "B1",
     };
     request(app)
-      .post(`/users/${student_id}/genDuicdtkuLink`)
+      .post(`/users/${student_id}/genDuitkuLink`)
       .set("access_token", student_token)
       .send(paymentData)
       .then((res) => {
