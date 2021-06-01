@@ -462,3 +462,16 @@ describe("DELETE /announcement/:<announcement id>", () => {
       .catch((err) => done(err));
   });
 });
+
+describe("GET /logout", () => {
+  test("Should response 200", (done) => {
+    request(app)
+      .get("/logout")
+      .set("access_token", student_token)
+      .then((res) => {
+        expect(res.statusCode).toEqual(200);
+        done();
+      })
+      .catch((err) => done(err));
+  });
+});
