@@ -115,68 +115,46 @@ class ClassControllers {
   static addClasses(req, res, next) {
     let { LectureId } = req.body;
     const UserId = req.loggedUser.id;
-    let quota;
-    let data = [];
+    let data;
 
-    if (LectureId.length === 1) {
-      Lecture.findByPk(LectureId[0]).then((lectureData) => {
-        quota = lectureData.quota;
-        return Class.findAll({
-          where: {
-            LectureId: LectureId,
-          },
-        }).then((listClass) => {
-          if (listClass.length < quota) {
-            return Class.create({ UserId, LectureId }).then((response) => {
-              res.status(201).json({ message: "Kuliah telah dibuat" });
+    LectureId.forEach((e) => {
+      data = {
+        LectureId: e,
+        UserId,
+      };
+      ClassControllers.filterClasses(data);
+    });
+    res.status(201).json({ message: `Berhasil bergabung dengan Kelas` });
+  }
+
+  static filterClasses(data) {
+    let lectureName;
+    let quota;
+    let { LectureId } = data;
+    Lecture.findByPk(LectureId).then((lectureData) => {
+      quota = lectureData.quota;
+      lectureName = lectureData.name;
+      return Class.findAll({
+        where: {
+          LectureId: LectureId,
+        },
+      })
+        .then((listClass) => {
+          console.log(listClass.length, quota);
+          if (listClass.length <= quota) {
+            return Class.create(data).then((response) => {
+              console.log("berhasil add gan");
+              return "sukses add";
             });
           } else {
-            next({
-              name: "error_quota",
-              message: "Batas kuota kelas telah mencapai maksimum",
-            });
+            console.log("gagal add gan");
+            return "gagal nyet";
           }
-        });
-      });
-    } else {
-      LectureId.forEach((e) => {
-        data.push({
-          LectureId: e,
-          UserId,
-        });
-      });
-      Class.bulkCreate(data)
-        .then((result) => {
-          let newData = [];
-          result.forEach((e) => {
-            newData.push(e.dataValues.id);
-          });
-
-          return Class.findAll({
-            where: {
-              id: {
-                [Op.in]: newData,
-              },
-            },
-            include: [
-              {
-                model: Lecture,
-                where: {
-                  id: {
-                    [Op.in]: LectureId,
-                  },
-                },
-              },
-            ],
-          });
-        })
-        .then((data) => {
-          res.status(201).json(data);
         })
         .catch((err) => {
-          console.log(err);
+          return err;
         });
-    }
+    });
   }
 
   static filterKrs(req, res, next) {
