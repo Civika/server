@@ -113,35 +113,27 @@ class ClassControllers {
   }
 
   static addClasses(req, res, next) {
-    // console.log(req.body, "<<<<<")
     let { LectureId } = req.body;
     const UserId = req.loggedUser.id;
     let quota;
-    // LectureId.map((e) => Number(e))
     let data = [];
 
     if (LectureId.length === 1) {
-      Lecture.findByPk(LectureId).then((lectureData) => {
+      Lecture.findByPk(LectureId[0]).then((lectureData) => {
         quota = lectureData.quota;
         return Class.findAll({
           where: {
             LectureId: LectureId,
           },
         }).then((listClass) => {
-          // console.log(listClass.length, "<<<<<ini dataaa")
-          // console.log(quota, "<<<<<<<ini quotaaaaa")
-
           if (listClass.length < quota) {
             return Class.create({ UserId, LectureId }).then((response) => {
-              // console.log(response)
-              // console.log(UserId, "<<<<<<<<user")
-              // console.log(LectureId, "<<<<<<<lectureid")
               res.status(201).json({ message: "Kuliah telah dibuat" });
             });
           } else {
             next({
               name: "error_quota",
-              message: "batas kuota kelas telah mencapai maksimum",
+              message: "Batas kuota kelas telah mencapai maksimum",
             });
           }
         });
@@ -179,9 +171,8 @@ class ClassControllers {
           });
         })
         .then((data) => {
-          res.status(200).json(data);
+          res.status(201).json(data);
         })
-
         .catch((err) => {
           console.log(err);
         });
@@ -190,20 +181,16 @@ class ClassControllers {
 
   static filterKrs(req, res, next) {
     const UserId = req.loggedUser.id;
-
     Class.findAll({
       where: {
         UserId,
       },
     })
       .then((data) => {
-        // console.log(data, "<<<<<<<<<")
         const newData = [];
-
         data.forEach((e) => {
           newData.push(e.LectureId);
         });
-        // console.log(newData, "<<<<<<<<")
         return Lecture.findAll({
           where: {
             id: {
@@ -212,12 +199,11 @@ class ClassControllers {
           },
         });
       })
-
       .then((data) => {
         res.status(200).json(data);
       })
       .catch((err) => {
-        console.log(err);
+        next(err);
       });
   }
 }

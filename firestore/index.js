@@ -1,17 +1,21 @@
-const firebase = require("firebase/app");
-require("firebase/firestore");
+// const firebase = require("firebase/app");
+// require("firebase/firestore");
+const admin = require("firebase-admin");
+const serviceAccount = require("./civika-announcement-12bab31e8969.json");
 
-const firebaseConfig = {
-  apiKey: "AIzaSyAnTpcZepeOLS1kLUDo2NoXIPmfu3LyBF8",
-  authDomain: "civika-announcement.firebaseapp.com",
-  projectId: "civika-announcement",
-  storageBucket: "civika-announcement.appspot.com",
-  messagingSenderId: "926883263950",
-  appId: "1:926883263950:web:9b1f3e3d03982c130e679f",
-};
+admin.initializeApp({ credential: admin.credential.cert(serviceAccount) });
 
-firebase.initializeApp(firebaseConfig);
+// const firebaseConfig = {
+//   apiKey: "AIzaSyAnTpcZepeOLS1kLUDo2NoXIPmfu3LyBF8",
+//   authDomain: "civika-announcement.firebaseapp.com",
+//   projectId: "civika-announcement",
+//   storageBucket: "civika-announcement.appspot.com",
+//   messagingSenderId: "926883263950",
+//   appId: "1:926883263950:web:9b1f3e3d03982c130e679f",
+// };
 
-const db = firebase.firestore();
+// firebase.initializeApp(firebaseConfig);
+
+const db = admin.firestore();
 
 module.exports = db;

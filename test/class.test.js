@@ -7,6 +7,8 @@ let teacher_token;
 let student_token;
 let student_id;
 let lecture_id;
+let arrayOfLectureId = [];
+let lectureIdOneArray = [];
 let class_id;
 
 const studentData = {
@@ -37,12 +39,32 @@ const teacherData = {
   role: "teacher",
 };
 
-const lectureData = {
-  name: "English Lesson",
-  quota: 1,
-  credits: 3,
-  schedule: "16.30",
-};
+const lectureData = [
+  {
+    name: "English Lesson",
+    quota: 1,
+    credits: 3,
+    schedule: "16.30",
+  },
+  {
+    name: "Agama",
+    quota: 1,
+    credits: 3,
+    schedule: "16.30",
+  },
+  {
+    name: "Bahasa",
+    quota: 3,
+    credits: 3,
+    schedule: "16.30",
+  },
+  {
+    name: "Penjas",
+    quota: 1,
+    credits: 3,
+    schedule: "16.30",
+  },
+];
 
 beforeAll((done) => {
   User.create(studentData)
@@ -63,10 +85,19 @@ beforeAll((done) => {
         role: teacher.role,
       };
       teacher_token = encrypt(teacherPayload);
-      return Lecture.create(lectureData);
+      return Lecture.bulkCreate(lectureData);
     })
-    .then((lecture) => {
-      lecture_id = lecture.id;
+    .then((lectures) => {
+      lectures.forEach((lecture, idx) => {
+        if (idx === 0) {
+          lecture_id = lecture.dataValues.id;
+        } else if (idx === 1) {
+          // arrayOfLectureId.push(lecture.dataValues.id);
+          lectureIdOneArray.push(lecture.dataValues.id);
+        } else {
+          arrayOfLectureId.push(lecture.dataValues.id);
+        }
+      });
       done();
     })
     .catch();
@@ -386,5 +417,79 @@ describe("DELETE class/ FAILED", () => {
       .catch((err) => {
         done(err);
       });
+  });
+});
+
+// add 1 class
+describe("POST /classes", () => {
+  test("Should response 201", (done) => {
+    request(app)
+      .post("/classes")
+      .set("access_token", student_token)
+      .send({ LectureId: lectureIdOneArray })
+      .then((res) => {
+        expect(res.statusCode).toEqual(201);
+        expect(typeof res.body).toEqual("object");
+        expect(res.body).toHaveProperty("message", "Kuliah telah dibuat");
+        done();
+      })
+      .catch((err) => done(err));
+  });
+});
+
+// class full
+describe("POST /classes FAILED", () => {
+  test("Should response 400", (done) => {
+    request(app)
+      .post("/classes")
+      .set("access_token", student_token)
+      .send({ LectureId: lectureIdOneArray })
+      .then((res) => {
+        expect(res.statusCode).toEqual(400);
+        expect(typeof res.body).toEqual("object");
+        expect(res.body).toHaveProperty(
+          "message",
+          "Batas kuota kelas telah mencapai maksimum"
+        );
+        done();
+      })
+      .catch((err) => done(err));
+  });
+});
+
+// add more than 1 classes
+describe("POST /classes SUCESS", () => {
+  test("Should response 291", (done) => {
+    request(app)
+      .post("/classes")
+      .set("access_token", student_token)
+      .send({ LectureId: arrayOfLectureId })
+      .then((res) => {
+        expect(res.statusCode).toEqual(201);
+        expect(typeof res.body).toEqual("object");
+        expect(res.body[0]).toHaveProperty("Lecture");
+        done();
+      })
+      .catch((err) => done(err));
+  });
+});
+
+//filter class
+describe("/GET Class for KRS", () => {
+  test("Should response 200", (done) => {
+    request(app)
+      .get("/krs")
+      .set("access_token", student_token)
+      .then((res) => {
+        expect(res.statusCode).toEqual(200);
+        expect(typeof res.body).toEqual("object");
+        expect(res.body[0]).toHaveProperty("id");
+        expect(res.body[0]).toHaveProperty("name");
+        expect(res.body[0]).toHaveProperty("quota");
+        expect(res.body[0]).toHaveProperty("credits");
+        expect(res.body[0]).toHaveProperty("schedule");
+        done();
+      })
+      .catch((err) => done(err));
   });
 });

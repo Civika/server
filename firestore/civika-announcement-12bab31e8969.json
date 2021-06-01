@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "civika-announcement",
+  "private_key_id": "12bab31e8969758ea3fda31c8538d387882ed9a9",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQC0OVkD/v4KGLzN\nLA47J4mq10WSSXWG/DNAH4U2IEOrNbNiANGTrrbG0aesLh7mmE2P7OBecU1RaRgn\nPC2Yy3I8ZJqPwlm/AfhUbmosLSMHkdtMhYfOppIDSQQMaEzQX7JQ0jX/a5byfxYA\nRPM4RbbvNM2nBgJUp7mV8TjUZdk51aBZDkLIDHgEVHN2LKXXGeNUTZdrFLTc4itw\n7vsUveK0BJ7fvxOarvKOPYaRM7wBr14J9/FzofHnZqYLzCAJptvilTqzJYN4bVj9\nLP1vrsYvC2IS1m72OeYwbSdTNxDxi86AoSyl37vN+EYzkwlvYF0wmYj3C/DtzQWy\nD/ceexg3AgMBAAECggEAF1Lip8c81k6sRHtCnjo4MVFp0gxKtvz1nwNVSJN1Xnd1\nLyY++TdftSxV4E0Zt6sXQpybzu0n3fTVaOJ7Xi5aKuG0NQ2ocrVND5Q4jl4LDgQ8\n1tLjKAXbmKw+52IqKr9vwtDppxQj9V8oGEHUHkC7c4qoYMjAzXblaDfPLIG/0qGQ\n30K7jP2I5j8AFvKEIhKpqi7QruE92XbeouqQ3uqWd/DGEdlGcG/1YJXmxeiS8EJk\nuMXgYGthUbQsli6Ay/FVbk5jmC6MZH05IchGZFjBDnjXxd0lFO4cPEjZmcTNa/VJ\nPARgSeHOWwJmvCSUTFNq6bhxBzikmlGeqFEuNNDPhQKBgQDdUxWeGE9hMjRyBfll\n99hJJdDHTQZiidVg/6ILpn27O5Ra/Q75iRruiVuU7GjEMWSnXUUPW4FNNrgX2uh3\nsdICH13WJPPg54PWjziSIi74UzhEgflp81hKXbuvRIjR9J1g697F+6C2I84DU3X+\nNeJo2Hv5uLTnjR9AOOmVbJ7OEwKBgQDQdcwg6hSYDrDgIe59SuGRGd94o+QiKSI/\ng99M/AXjgwaMN1d9bQGxRSZMYW2hcvR3GnzZuXrap8sGT1dxCKQ6pZjMJHzN7F06\nkBRwO+m8SQA3k+JZPFB7cIEWqs6REFFg2YOBO9FMa4bi85J9L0S4Ottrm29x9s3T\nqUwYUbYBzQKBgGiJtN0+qEfFeeYdkkYqgbtTJEDuzcQ/TE0LkZOlKSAFrTYo7yjI\nLLNcp6g43edFWUCAGn19gB5jaSLDYCghEou0GxNp0tN5JtlyPosvoDXkwOAC8Dau\nHRbLHTpUybc5rhg4cLnc93Twhn8lrcbL1swk7LHwH2p7SrZ/6zyL2JqHAoGBAIAu\n3z2iEtXJutOnqcnbgMbDvRmm1cJ3vrqFsYraMhjLWfxgj2jt3auO1NUE1+/+Cvsu\nC3WqSzQnF32izicQZEQ3zbRB/4h0foNjU14MSVbhIMQMKJQstWSiMo6oq2qiORgv\nyGBwUuwF9qSZmAtoRH5wmroZkzblx30Ozl7p59xFAoGBAIzrVkRO5iBtplsk8pRC\nDyHZCZVbR6b004booW2N/pjNHam+uzCXcEvuetap4R4kA3MAUAUcCTKjPUuWifyZ\nW4WS1Gh4oByn/aV8t/qwtv9AdoAwY5f08mvD453F9UHPu1eOS212e8nmuZkT9M7i\nZDxaKVIRuuWAuv1U8bdAjJXy\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-vojiz@civika-announcement.iam.gserviceaccount.com",
+  "client_id": "107400382887011239143",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-vojiz%40civika-announcement.iam.gserviceaccount.com"
+}
