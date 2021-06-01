@@ -1,7 +1,7 @@
 // const firebase = require("firebase/app");
 // require("firebase/firestore");
 const admin = require("firebase-admin");
-const serviceAccount = require("./civika-announcement-12bab31e8969.json");
+const serviceAccount = require("../civika-announcement-12bab31e8969.json");
 
 admin.initializeApp({ credential: admin.credential.cert(serviceAccount) });
 
