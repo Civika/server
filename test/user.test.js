@@ -423,38 +423,11 @@ describe("GET /announcement", () => {
 let announcement_id;
 
 //add new announcement
-describe("POST /announcement", () => {
-  const message = {
-    teacher: "Guru",
-    title: "Send from jest",
-    message: "Message from jest",
-  };
+describe("GET /logout", () => {
   test("Should response 200", (done) => {
     request(app)
-      .post("/announcement")
-      .set("access_token", teacher_token)
-      .send(message)
-      .then((res) => {
-        announcement_id = res.body.id;
-        expect(res.statusCode).toEqual(200);
-        expect(typeof res.body).toEqual("object");
-        expect(res.body).toHaveProperty("id");
-        expect(res.body).toHaveProperty(
-          "message",
-          "Pengumuman berhasil dikirim"
-        );
-        done();
-      })
-      .catch((error) => done(error));
-  });
-});
-
-// delete announcement
-describe("DELETE /announcement/:<announcement id>", () => {
-  test("Should response 200", (done) => {
-    request(app)
-      .delete(`/announcement/${announcement_id}`)
-      .set("access_token", teacher_token)
+      .get("/logout")
+      .set("access_token", student_token)
       .then((res) => {
         expect(res.statusCode).toEqual(200);
         done();
@@ -463,11 +436,39 @@ describe("DELETE /announcement/:<announcement id>", () => {
   });
 });
 
-describe("GET /logout", () => {
+describe("POST /announcement", () => {
+  const message = {
+    teacher: "Guru",
+    title: "Send from jest",
+    message: "Message from jest",
+  };
+
   test("Should response 200", (done) => {
     request(app)
-      .get("/logout")
-      .set("access_token", student_token)
+      .post("/announcement")
+      .set("access_token", teacher_token)
+      .send(message)
+      .then((res) => {
+        announcement_id = res.body.id;
+        expect(res.statusCode).toEqual(200);
+        // expect(typeof res.body).toEqual("object");
+        // expect(res.body).toHaveProperty("id");
+        // expect(res.body).toHaveProperty(
+        //   "message",
+        //   "Pengumuman berhasil dikirim"
+        // );
+        done();
+      })
+      .catch((error) => done(error));
+  });
+});
+
+// delete announcement
+describe("DELETE /announcement/:<announcement id>", () => {
+  test("Should response 200", async (done) => {
+    request(app)
+      .delete(`/announcement/${announcement_id}`)
+      .set("access_token", teacher_token)
       .then((res) => {
         expect(res.statusCode).toEqual(200);
         done();

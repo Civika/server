@@ -34,13 +34,14 @@ class AnnouncementController {
       let announcementPosted = await announce.add(data);
 
       //! For push notification to user if users is login
-      snapshotToken.forEach((token) => {
+      snapshotToken.forEach(async (token) => {
         const { pushToken } = token.data();
+        console.log(pushToken);
         const messageToPushNotif = {
           to: pushToken,
           title,
           body: message,
-          data: { data: "ini data" },
+          priority: "high",
         };
 
         fetch("https://exp.host/--/api/v2/push/send", {
@@ -54,10 +55,7 @@ class AnnouncementController {
           body: JSON.stringify(messageToPushNotif),
         });
 
-        res.status(200).json({
-          id: announcementPosted.id,
-          message: "Pengumuman berhasil dikirim",
-        });
+        res.status(200);
       });
     } catch (error) {
       next(error);

@@ -54,7 +54,7 @@ const lectureData = [
   },
   {
     name: "Bahasa",
-    quota: 3,
+    quota: 2,
     credits: 3,
     schedule: "16.30",
   },
@@ -459,7 +459,7 @@ describe("POST /classes FAILED", () => {
 
 // add more than 1 classes
 describe("POST /classes SUCESS", () => {
-  test("Should response 291", (done) => {
+  test("Should response 201", (done) => {
     request(app)
       .post("/classes")
       .set("access_token", student_token)
@@ -467,10 +467,49 @@ describe("POST /classes SUCESS", () => {
       .then((res) => {
         expect(res.statusCode).toEqual(201);
         expect(typeof res.body).toEqual("object");
-        expect(res.body[0]).toHaveProperty("Lecture");
+        expect(res.body).toHaveProperty(
+          "message",
+          "Kelas berhasil ditambahkan"
+        );
         done();
       })
       .catch((err) => done(err));
+  });
+});
+
+describe("POST /classes sucess but not all classes", () => {
+  test("Should response 201", (done) => {
+    request(app)
+      .post("/classes")
+      .set("access_token", student_token)
+      .send({ LectureId: arrayOfLectureId })
+      .then((res) => {
+        expect(res.statusCode).toEqual(201);
+        expect(typeof res.body).toEqual("object");
+        expect(res.body).toHaveProperty(
+          "message",
+          "Kelas berhasil ditambahkan, namun ada kelas yang penuh yaitu "
+        );
+        done();
+      });
+  });
+});
+
+describe("POST /classes fail because all classes is full", () => {
+  test("Should response 400", (done) => {
+    request(app)
+      .post("/classes")
+      .set("access_token", student_token)
+      .send({ LectureId: arrayOfLectureId })
+      .then((res) => {
+        expect(res.statusCode).toEqual(400);
+        expect(typeof res.body).toEqual("object");
+        expect(res.body).toHaveProperty(
+          "message",
+          "Seluruh kelas yang anda pilih sudah penuh"
+        );
+        done();
+      });
   });
 });
 

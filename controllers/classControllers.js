@@ -1,4 +1,4 @@
-const { Class, Lecture, User } = require("../models");
+const { Class, Lecture, User, Sequelize } = require("../models");
 const { Op } = require("sequelize");
 
 class ClassControllers {
@@ -145,33 +145,51 @@ class ClassControllers {
           UserId,
         });
       });
-      Class.bulkCreate(data)
-        .then((result) => {
-          let newData = [];
-          result.forEach((e) => {
-            newData.push(e.dataValues.id);
-          });
-
+      let LecturesQuota = [];
+      let fullClass = [];
+      Lecture.findAll({ where: { id: { [Op.or]: LectureId } } })
+        .then((dataLectures) => {
+          LecturesQuota = dataLectures;
           return Class.findAll({
-            where: {
-              id: {
-                [Op.in]: newData,
-              },
-            },
-            include: [
-              {
-                model: Lecture,
-                where: {
-                  id: {
-                    [Op.in]: LectureId,
-                  },
-                },
-              },
+            where: { LectureId: { [Op.in]: LectureId } },
+            group: ["LectureId"],
+            attributes: [
+              "LectureId",
+              [Sequelize.fn("COUNT", "LectureId"), "count"],
             ],
+            raw: true,
           });
         })
-        .then((data) => {
-          res.status(201).json(data);
+        .then(async (dataClassesCounted) => {
+          if (dataClassesCounted.length >= 1) {
+            LecturesQuota.forEach(async (quota) => {
+              dataClassesCounted.forEach(async (countedClass) => {
+                if (quota.id === countedClass.LectureId) {
+                  if (quota.quota > countedClass.count) {
+                    await Class.create({ UserId, LectureId: quota.id });
+                  } else {
+                    fullClass.push(quota.name);
+                  }
+                }
+              });
+            });
+            if (fullClass.length >= 1 && fullClass.length < LectureId.length) {
+              res.status(201).json({
+                message:
+                  "Kelas berhasil ditambahkan, namun ada kelas yang penuh yaitu ",
+                fullClass,
+              });
+            } else if (fullClass.length < LectureId.length) {
+              res.status(201).json({ message: "Kelas berhasil ditambahkan" });
+            } else {
+              res
+                .status(400)
+                .json({ message: "Seluruh kelas yang anda pilih sudah penuh" });
+            }
+          } else {
+            await Class.bulkCreate(data);
+            res.status(201).json({ message: "Kelas berhasil ditambahkan" });
+          }
         })
         .catch((err) => {
           console.log(err);
