@@ -10,12 +10,13 @@ class AnnouncementController {
       const notification = [];
       snapshot.forEach((doc) => {
         const id = doc.id;
-        const { message, title, teacher } = doc.data();
+        const { message, title, teacher, timeStamp } = doc.data();
         const data = {
           id,
           message,
           title,
           teacher,
+          timeStamp,
         };
         notification.push(data);
       });
@@ -28,7 +29,12 @@ class AnnouncementController {
   static async addAnnouncement(req, res, next) {
     const { teacher, title, message } = req.body;
     const snapshotToken = await dataPushNotif.get();
-    const data = { teacher, title, message };
+    const date = new Date();
+    const day = date.getDate();
+    const month = date.getMonth();
+    const year = date.getFullYear();
+    const timeStamp = `${day}/${month}/${year}`;
+    const data = { teacher, title, message, timeStamp };
     try {
       //! For add data to firestore
       let announcementPosted = await announce.add(data);
@@ -36,7 +42,6 @@ class AnnouncementController {
       //! For push notification to user if users is login
       snapshotToken.forEach(async (token) => {
         const { pushToken } = token.data();
-        console.log(pushToken);
         const messageToPushNotif = {
           to: pushToken,
           title,
@@ -54,8 +59,10 @@ class AnnouncementController {
           },
           body: JSON.stringify(messageToPushNotif),
         });
-
-        res.status(200);
+      });
+      res.status(200).json({
+        id: announcementPosted.id,
+        message: "Pengumuman berhasil dikirim",
       });
     } catch (error) {
       next(error);

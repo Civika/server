@@ -451,12 +451,12 @@ describe("POST /announcement", () => {
       .then((res) => {
         announcement_id = res.body.id;
         expect(res.statusCode).toEqual(200);
-        // expect(typeof res.body).toEqual("object");
-        // expect(res.body).toHaveProperty("id");
-        // expect(res.body).toHaveProperty(
-        //   "message",
-        //   "Pengumuman berhasil dikirim"
-        // );
+        expect(typeof res.body).toEqual("object");
+        expect(res.body).toHaveProperty("id");
+        expect(res.body).toHaveProperty(
+          "message",
+          "Pengumuman berhasil dikirim"
+        );
         done();
       })
       .catch((error) => done(error));
