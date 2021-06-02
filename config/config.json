@@ -1,9 +1,9 @@
 {
     "development": {
         "username": "postgres",
-        "password": "123123",
+        "password": "postgres",
         "database": "civika",
-        "host": "127.0.0.1",
+        "host": "civika.cj43vm6ih5jk.ap-southeast-1.rds.amazonaws.com",
         "dialect": "postgres"
     },
     "test": {
