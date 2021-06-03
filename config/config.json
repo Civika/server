@@ -1,23 +1,23 @@
 {
-    "development": {
-        "username": "postgres",
-        "password": "postgres",
-        "database": "civika",
-        "host": "civika.cj43vm6ih5jk.ap-southeast-1.rds.amazonaws.com",
-        "dialect": "postgres"
-    },
-    "test": {
-        "username": "postgres",
-        "password": "123123",
-        "database": "civika-test",
-        "host": "127.0.0.1",
-        "dialect": "postgres"
-    },
-    "production": {
-        "username": "root",
-        "password": null,
-        "database": "database_production",
-        "host": "127.0.0.1",
-        "dialect": "mysql"
-    }
+  "development": {
+    "username": "postgres",
+    "password": "postgres",
+    "database": "civika",
+    "host": "civika.cj43vm6ih5jk.ap-southeast-1.rds.amazonaws.com",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "postgres",
+    "password": "123123",
+    "database": "civika-test",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "root",
+    "password": null,
+    "database": "database_production",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
 }

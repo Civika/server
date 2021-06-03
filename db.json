@@ -72,7 +72,7 @@
     },
     {
       "id": 6,
-      "fullName": "Andi Javier",
+      "fullName": "Prof. dr. Andi Javier, S.T, M.Sc",
       "address": "Jl. Mulyosari Prima I 3 Bl MA/4",
       "birthdate": "1998-05-23",
       "ipk": 3.62,
@@ -91,42 +91,48 @@
       "name": "Filsafat Ilmu",
       "quota": 2,
       "credits": 3,
-      "schedule": "16.30"
+      "schedule": "16.30",
+      "teacher": "Prof. dr. Andi Javier, S.T, M.Sc"
     },
     {
       "id": 2,
       "name": "Agama",
       "quota": 10,
       "credits": 3,
-      "schedule": "17.30"
+      "schedule": "17.30",
+      "teacher": "Prof. dr. Andi Javier, S.T, M.Sc"
     },
     {
       "id": 3,
       "name": "Kewarganegaraan",
       "quota": 11,
       "credits": 3,
-      "schedule": "12.30"
+      "schedule": "12.30",
+      "teacher": "Prof. dr. Andi Javier, S.T, M.Sc"
     },
     {
       "id": 4,
       "name": "Sosiologi",
       "quota": 8,
       "credits": 2,
-      "schedule": "10.00"
+      "schedule": "10.00",
+      "teacher": "Prof. dr. Andi Javier, S.T, M.Sc"
     },
     {
       "id": 5,
       "name": "Skripsi",
       "quota": 10,
       "credits": 6,
-      "schedule": "08.00"
+      "schedule": "08.00",
+      "teacher": "Prof. dr. Andi Javier, S.T, M.Sc"
     },
     {
       "id": 6,
       "name": "Psikologi Sosial",
       "quota": 11,
       "credits": 3,
-      "schedule": "13.30"
+      "schedule": "13.30",
+      "teacher": "Prof. dr. Andi Javier, S.T, M.Sc"
     }
   ]
 }

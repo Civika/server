@@ -19,6 +19,7 @@ module.exports = (sequelize, DataTypes) => {
       quota: DataTypes.INTEGER,
       credits: DataTypes.INTEGER,
       schedule: DataTypes.STRING,
+      teacher: DataTypes.STRING,
     },
     {
       sequelize,
